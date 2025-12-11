@@ -984,14 +984,20 @@ VALUES (
         1,
         'Meet student group CS1D',
         'Meet student group CS1D for project presentation session',
+        NULL,
         '2025-11-11',
+        'in progress',
+        'low',
         'easy'
     ),
     (
         1,
         'Research session',
         'Prepare materials for research sesssion at 5 PM Thursday',
+        NULL,
         '2025-10-10',
+        'in progress',
+        'low',
         'easy'
     ),
     (
@@ -1000,6 +1006,7 @@ VALUES (
         'Grade all assignments for homework 2',
         '2025-10-01',
         '2025-10-07',
+        'in progress',
         'high',
         'medium'
     ),
@@ -1009,6 +1016,7 @@ VALUES (
         'Update lecture slides for the next lecture',
         '2025-09-03',
         '2025-09-07',
+        'in progress',
         'high',
         'medium'
     ),
@@ -1016,7 +1024,9 @@ VALUES (
         2,
         'Update exam topics',
         'Add most recent chapter to exam topics',
+        NULL,
         '2025-09-11',
+        'in progress',
         'high',
         'easy'
     ),
@@ -1024,7 +1034,9 @@ VALUES (
         3,
         'Meet student group CS1A',
         'Meet student group CS1A for exam prep',
+        NULL,
         '2025-11-12',
+        'in progress',
         'high',
         'medium'
     ),
@@ -1034,16 +1046,48 @@ VALUES (
         'Grade homework 1 for all student groups this week',
         '2025-11-02',
         '2025-11-07',
+        'in progress',
         'urgent',
         'medium'
     );
-/*    
 INSERT INTO Activity_Subtasks (activity_id, title, is_completed)
-VALUES (),
-    (),
-    (),
-    (),
-    (),
-    (),
-    (),
-    ();*/
+VALUES (
+        17,
+        'Read lesson slides from last year and update them',
+        FALSE
+    ),
+    (
+        18,
+        'Check if all students submitted their projects',
+        FALSE
+    ),
+    (
+        19,
+        'Read online some academic papers on the reaserch subject',
+        FALSE
+    ),
+    (
+        20,
+        'Decide grading method and start grading assignments',
+        FALSE
+    ),
+    (
+        21,
+        'Delete unnecessary info from lecture slides and update links',
+        FALSE
+    ),
+    (
+        22,
+        'Add new exam topic and write exam questions on the newly added topic',
+        FALSE
+    ),
+    (
+        23,
+        'Prepare mock exam subject for CS1A group',
+        FALSE
+    ),
+    (
+        24,
+        'Decide grading method for homework 1',
+        FALSE
+    );
