@@ -15,6 +15,7 @@ public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "activity_id")
     private Long activityId;
 
     @ManyToOne
@@ -34,13 +35,16 @@ public class Activity {
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private ActivityStatus status;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "priority")
     private Priority priority;
 
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "difficulty")
     private Difficulty difficulty;
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)

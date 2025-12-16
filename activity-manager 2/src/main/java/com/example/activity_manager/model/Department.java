@@ -8,6 +8,7 @@ public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "department_id")
     private Long departmentId;
 
     @Column(name="department_name", nullable = false, unique = true)

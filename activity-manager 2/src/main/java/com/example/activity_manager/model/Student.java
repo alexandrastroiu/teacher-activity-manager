@@ -12,6 +12,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long studentId;
 
     @Column(name = "last_name", nullable = false)

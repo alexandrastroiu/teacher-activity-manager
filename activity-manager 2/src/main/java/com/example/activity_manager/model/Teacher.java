@@ -14,6 +14,7 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "teacher_id")
     private Long teacherId;
 
     @Column(name="first_name", nullable = false)

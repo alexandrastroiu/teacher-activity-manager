@@ -12,6 +12,7 @@ public class ActivitySubtask {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subtask_id")
     private Long subtaskId;
 
     @ManyToOne

@@ -12,7 +12,8 @@ public class StudentGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentGroupId;
+    @Column(name = "group_id")
+    private Long groupId;
 
     @Column(name="group_name", nullable = false)
     private String groupName;
@@ -22,7 +23,7 @@ public class StudentGroup {
 
     // Getters
     public Long getStudentGroupId() {
-        return studentGroupId;
+        return groupId;
     }
 
     public String getGroupName() {

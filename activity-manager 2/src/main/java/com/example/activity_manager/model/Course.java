@@ -12,12 +12,14 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "course_id")
     private Long courseId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "course_name", nullable = false, unique = true)
     private String courseName;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "course_type")
     private CourseType courseType = CourseType.MANDATORY;
 
     @ManyToOne
