@@ -1,5 +1,5 @@
 -- Departments 
-INSERT INTO Departments (department_name)
+INSERT INTO departments (department_name)
 VALUES ('Computer Science'),
     ('Mathematics'),
     ('Physics'),
@@ -12,7 +12,7 @@ VALUES ('Computer Science'),
     ('Robotics'),
     ('Business');
 -- Users 
-INSERT INTO Users (username, user_password, user_role, user_email)
+INSERT INTO users (username, user_password, user_role, user_email)
 VALUES (
         'rachel.holland',
         '$2y$10$KevCeNwoMiMlvwshqESwleMS3xmawO/A2HsPiTVtoT.l6GhpY/vOC',
@@ -257,7 +257,7 @@ VALUES (
     );
 -- admins
 -- Student groups 
-INSERT INTO Student_Groups (group_name)
+INSERT INTO student_groups (group_name)
 VALUES ('CS1A'),
     ('CS1B'),
     ('CS1C'),
@@ -271,7 +271,7 @@ VALUES ('CS1A'),
     ('CS3C'),
     ('CS3D');
 -- Teachers 
-INSERT INTO Teachers (last_name, first_name, department_id, user_id)
+INSERT INTO teachers (last_name, first_name, department_id, user_id)
 VALUES ('Jacobs', 'Florence', 2, 25),
     ('Jordan', 'George', 1, 26),
     ('Kelly', 'Sara', 7, 27),
@@ -288,7 +288,7 @@ VALUES ('Jacobs', 'Florence', 2, 25),
     ('Ellis', 'Matteo', 8, 38),
     ('Schaefer', 'Bruce', 4, 39);
 -- Students 
-INSERT INTO Students (last_name, first_name, group_id, user_id)
+INSERT INTO students (last_name, first_name, group_id, user_id)
 VALUES ('Holland', 'Rachel', 1, 1),
     ('Brown', 'Alice', 1, 2),
     ('Smith', 'Carol', 2, 3),
@@ -314,7 +314,7 @@ VALUES ('Holland', 'Rachel', 1, 1),
     ('Riley', 'Lilian', 12, 23),
     ('Levy', 'Natalie', 12, 24);
 -- Courses 
-INSERT INTO Courses (course_name, course_type, teacher_id)
+INSERT INTO courses (course_name, course_type, teacher_id)
 VALUES ('Calculus', 'MANDATORY', 1),
     (
         'Linear Algebra and Applications',
@@ -386,7 +386,7 @@ VALUES ('Calculus', 'MANDATORY', 1),
     ('Entrepreneurship in IT', 'OPTIONAL', 13),
     ('IT Project Management', 'OPTIONAL', 13);
 -- Course Sessions (only for First Semester courses)
-INSERT INTO Course_Sessions (course_id, session_date, session_time)
+INSERT INTO course_sessions (course_id, session_date, session_time)
 VALUES (1, '2025-09-02', '10:00:00'),
     (1, '2025-09-09', '10:00:00'),
     (1, '2025-09-16', '10:00:00'),
@@ -617,7 +617,7 @@ VALUES (1, '2025-09-02', '10:00:00'),
     (32, '2026-01-05', '14:00:00'),
     (32, '2026-01-19', '14:00:00');
 -- next courses(21, 35, 38, 22, 19, 26, 27, 33, 29, 24,28, 31, 23)
-INSERT INTO Course_Sessions (course_id, session_date, session_time)
+INSERT INTO course_sessions (course_id, session_date, session_time)
 VALUES (21, '2025-09-05', '18:00:00'),
     (21, '2025-09-19', '18:00:00'),
     (21, '2025-10-03', '18:00:00'),
@@ -707,7 +707,7 @@ VALUES (21, '2025-09-05', '18:00:00'),
     (23, '2026-01-13', '08:00:00'),
     (23, '2026-01-27', '08:00:00');
 -- Course Enrollment
-INSERT INTO Course_Enrollment (student_id, course_id, enrollment_type)
+INSERT INTO course_enrollment (student_id, course_id, enrollment_type)
 VALUES (1, 1, 'ACTIVE'),
     -- first year students
     (1, 2, 'ACTIVE'),
@@ -947,7 +947,7 @@ VALUES (1, 1, 'ACTIVE'),
     (24, 17, 'REPETITION'),
     (24, 13, 'REPETITION'),
     (24, 7, 'REPETITION');
-INSERT INTO Attendance (session_id, student_id, attendance_status)
+INSERT INTO attendance (session_id, student_id, attendance_status)
 VALUES (1, 1, 'PRESENT'),
     (21, 1, 'PRESENT'),
     (40, 1, 'PRESENT'),
@@ -960,7 +960,7 @@ VALUES (1, 1, 'PRESENT'),
     (59, 2, 'PRESENT'),
     (78, 2, 'PRESENT'),
     (88, 2, 'PRESENT');
-INSERT INTO Activities (
+INSERT INTO activities (
         teacher_id,
         title,
         description,
@@ -1051,7 +1051,7 @@ VALUES (
         'MEDIUM'
     );
     
-INSERT INTO Activity_Subtasks (activity_id, title, is_completed)
+INSERT INTO activity_subtasks (activity_id, title, is_completed)
 VALUES (
         1,
         'Read lesson slides from last year and update them',
