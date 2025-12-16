@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Table(name = "Attendance")
 public class Attendance {
     @EmbeddedId
-    private AttendanceId id; //TODO
+    private AttendanceId id; // composite Primary Key
 
     @ManyToOne
     @MapsId("sessionId")

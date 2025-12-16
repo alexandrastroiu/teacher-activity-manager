@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 public class Student {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentId;
 
     @Column(name = "last_name", nullable = false)
@@ -24,6 +24,9 @@ public class Student {
     @JoinColumn(name="user_id", nullable = false)
     private User userId;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id", nullable = false)
+    private StudentGroup group;
 
     // getters & setters
 
