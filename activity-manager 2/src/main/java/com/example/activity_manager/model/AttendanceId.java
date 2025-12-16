@@ -1,3 +1,7 @@
+/** Clasa pentru cheia compusa
+ * @author Stroiu Alexandra-Ioana
+ * @version 16 Decembrie 2025
+ */
 package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
@@ -7,4 +11,33 @@ import java.util.Objects;
 //TODO
 @Embeddable
 public class AttendanceId implements Serializable {
+
+    private Long sessionId;
+    private Long studentId;
+
+    public AttendanceId() {}
+
+    public AttendanceId(Long sessionId, Long studentId) {
+        this.sessionId = sessionId;
+        this.studentId = studentId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof AttendanceId)) {
+            return false;
+        }
+
+        AttendanceId otherId = (AttendanceId) obj;
+        return Objects.equals(sessionId, otherId.sessionId) && Objects.equals(studentId, otherId.studentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sessionId, studentId);
+    }
 }
