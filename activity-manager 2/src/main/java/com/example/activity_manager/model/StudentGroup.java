@@ -17,6 +17,20 @@ public class StudentGroup {
     @Column(name="group_name", nullable = false)
     private String groupName;
 
-    // getters & setters
+    // Default constructor
+    public StudentGroup() {}
 
+    // Getters
+    public Long getStudentGroupId() {
+        return studentGroupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    // Setters
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 }

@@ -1,6 +1,6 @@
 /** Clasa pentru sesiuni de curs
  * @author Stroiu Alexandra-Ioana
- * @version 15 Decembrie 2025
+ * @version 16 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
@@ -29,5 +29,44 @@ public class CourseSession {
     @Column(name="duration")
     private LocalTime duration;
 
-    // getters & setters
+    // Default constructor
+    public CourseSession() {}
+
+    // Getters
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public LocalDate getSessionDate() {
+        return sessionDate;
+    }
+
+    public LocalTime getSessionTime() {
+        return sessionTime;
+    }
+
+    public LocalTime getDuration() {
+        return duration;
+    }
+
+    // Setters
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void setSessionDate(LocalDate sessionDate) {
+        this.sessionDate = sessionDate;
+    }
+
+    public void setSessionTime(LocalTime sessionTime) {
+        this.sessionTime = sessionTime;
+    }
+
+    public void setDuration(LocalTime duration) {
+        this.duration = duration;
+    }
 }

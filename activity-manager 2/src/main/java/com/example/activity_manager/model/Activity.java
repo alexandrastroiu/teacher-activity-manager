@@ -6,6 +6,7 @@ package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -46,6 +47,98 @@ public class Activity {
     private List<ActivitySubtask> subtasks;
 
 
-    // getters & setters
+    // Default constructor
+    public Activity() {}
 
+    public Activity(Teacher teacher, String title) {
+        this.teacher = teacher;
+        this.title = title;
+        this.description = "";
+        this.startDate = null;
+        this.endDate = LocalDate.now();
+        this.status = ActivityStatus.IN_PROGRESS;
+        this.priority = Priority.LOW;
+        this.difficulty = Difficulty.EASY;
+    }
+
+    public Activity(Teacher teacher, String title, String description, LocalDate startDate, LocalDate endDate, ActivityStatus status, Priority priority, Difficulty difficulty) {
+        this.teacher = teacher;
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.priority = priority;
+        this.difficulty = difficulty;
+    }
+
+    // Getters
+    public Long getActivityId() {
+        return activityId;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public ActivityStatus getStatus() {
+        return status;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    // Setters
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public  void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+     this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setStatus(ActivityStatus status) {
+        this.status = status;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 }

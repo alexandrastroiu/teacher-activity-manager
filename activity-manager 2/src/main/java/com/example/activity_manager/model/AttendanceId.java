@@ -8,13 +8,13 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-//TODO
 @Embeddable
 public class AttendanceId implements Serializable {
 
     private Long sessionId;
     private Long studentId;
 
+    // Default constructor
     public AttendanceId() {}
 
     public AttendanceId(Long sessionId, Long studentId) {
@@ -22,6 +22,7 @@ public class AttendanceId implements Serializable {
         this.studentId = studentId;
     }
 
+    // Equals method
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -36,6 +37,7 @@ public class AttendanceId implements Serializable {
         return Objects.equals(sessionId, otherId.sessionId) && Objects.equals(studentId, otherId.studentId);
     }
 
+    // Hash method
     @Override
     public int hashCode() {
         return Objects.hash(sessionId, studentId);

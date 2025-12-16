@@ -14,7 +14,7 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long teacherId;
+    private Long teacherId;
 
     @Column(name="first_name", nullable = false)
     private String firstName;
@@ -24,11 +24,50 @@ public class Teacher {
 
     @OneToOne
     @JoinColumn(name="user_id", nullable = false)
-    private User userId;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name="department_id", nullable = false)
-    private Department departmentId;
+    private Department department;
 
-    // getters & setters
+    // Default constructor
+    public Teacher() {}
+
+    // Getters
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    // Setters
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 }

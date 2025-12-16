@@ -12,4 +12,22 @@ public class Department {
 
     @Column(name="department_name", nullable = false, unique = true)
     private String departmentName;
+
+    // Default constructor
+    public Department() {}
+
+    // Getters
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    // Setters
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
 }

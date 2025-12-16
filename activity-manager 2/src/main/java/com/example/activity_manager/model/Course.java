@@ -18,12 +18,43 @@ public class Course {
     private String courseName;
 
     @Enumerated(EnumType.STRING)
-    private CourseType courseType; /// TODO
+    private CourseType courseType = CourseType.MANDATORY;
 
     @ManyToOne
     @JoinColumn(name="teacher_id")
     private Teacher teacher;
 
-    //  getters & setters
+    // Default constructor
+    public Course() {}
 
+    // Getters
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public CourseType getCourseType() {
+        return courseType;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    // Setters
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void setCourseType(CourseType courseType) {
+        this.courseType = courseType;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 }

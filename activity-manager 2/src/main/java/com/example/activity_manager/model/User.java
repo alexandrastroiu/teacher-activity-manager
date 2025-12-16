@@ -21,12 +21,51 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name="user_role", nullable=false)
-    private String userRole;
+    private UserRole userRole;
 
     @Column(name="user_email", unique=true)
     private String userEmail;
 
-    // getters & setters
+    // Default constructor
+    public User() {}
+
+    // Getters
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    // Setters
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
 }
 
