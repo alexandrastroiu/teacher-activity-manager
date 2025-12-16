@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 import javax.annotation.processing.Generated;
 
 @Entity
-@Table(name="Teachers")
+@Table(name="teachers")
 public class Teacher {
 
     @Id

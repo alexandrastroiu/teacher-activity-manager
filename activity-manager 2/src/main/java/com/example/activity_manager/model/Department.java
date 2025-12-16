@@ -3,7 +3,7 @@ package com.example.activity_manager.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="Departments")
+@Table(name="departments")
 public class Department {
 
     @Id

@@ -7,7 +7,7 @@ package com.example.activity_manager.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Attendance")
+@Table(name = "attendance")
 public class Attendance {
     @EmbeddedId
     private AttendanceId attendanceId; // composite Primary Key

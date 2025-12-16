@@ -7,7 +7,7 @@ package com.example.activity_manager.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Student_Groups")
+@Table(name = "student_groups")
 public class StudentGroup {
 
     @Id
