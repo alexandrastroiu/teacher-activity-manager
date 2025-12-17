@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CourseSessionRepository extends JpaRepository<CourseSession, Long> {
     List<CourseSession> findByCourse_CourseId(Long courseId);
+    Long countByCourseCourseId(Long courseId);
 }
