@@ -37,7 +37,7 @@ public class AttendanceId implements Serializable {
         return Objects.equals(sessionId, otherId.sessionId) && Objects.equals(studentId, otherId.studentId);
     }
 
-    // Hash method
+    // Hashcode method
     @Override
     public int hashCode() {
         return Objects.hash(sessionId, studentId);
