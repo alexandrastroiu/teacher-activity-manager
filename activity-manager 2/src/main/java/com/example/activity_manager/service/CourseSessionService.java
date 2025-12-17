@@ -11,11 +11,37 @@ public class CourseSessionService {
 
     private final CourseSessionRepository sessionRepository;
 
+    // Constructor
     public CourseSessionService(CourseSessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 
+    // Find sessions related to a specific course
     public List<CourseSession> getSessionsByCourse(Long courseId) {
         return sessionRepository.findByCourse_CourseId(courseId);
+    }
+
+    // CRUD operations
+
+    // Create session
+    public CourseSession createSession(CourseSession session) {
+        return sessionRepository.save(session);
+    }
+
+    // Update session
+    public CourseSession updateSession(Long sessionId, CourseSession updated) {
+        CourseSession session = sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new RuntimeException("Session not found"));
+
+        session.setSessionDate(updated.getSessionDate());
+        session.setSessionTime(updated.getSessionTime());
+        session.setDuration(updated.getDuration());
+
+        return sessionRepository.save(session);
+    }
+
+    // Delete session
+    public void deleteSession(Long sessionId) {
+        sessionRepository.deleteById(sessionId);
     }
 }

@@ -36,4 +36,52 @@ public class ActivityService {
         activityRepository.deleteById(id);
     }
 
+    // Filtering activities
+    // TODO
+    public List<Activity> getActivitiesByStatus(Long teacherId, ActivityStatus status) {
+        return activityRepository.findByTeacherTeacherIdAndStatus(teacherId, status);
+    }
+
+    // TODO
+    public List<Activity> getActivitiesSortedByDeadline(Long teacherId) {
+        return activityRepository.findByTeacherTeacherIdOrderByEndDateAsc(teacherId);
+    }
+
+    // TODO
+    public List<Activity> getActivitiesSortedByProgress(Long teacherId) {
+        return activityRepository.findByTeacherTeacherIdOrderByProgressDesc(teacherId);
+    }
+
+    //TODO
+    // Calculate progress
+    public void updateProgress(Long activityId) {
+        long total = subtaskRepository.countByActivityActivityId(activityId);
+        long completed = subtaskRepository.countByActivityActivityIdAndCompletedTrue(activityId);
+
+        int progress = total == 0 ? 0 : (int) ((completed * 100) / total);
+
+        Activity activity = activityRepository.findById(activityId)
+                .orElseThrow(() -> new RuntimeException("Activity not found"));
+
+        activity.setProgress(progress);
+        activityRepository.save(activity);
+    }
+
+    // TODO Statistics
+    //TODO
+    public long countCompletedActivities(Long teacherId) {
+        return activityRepository.countByTeacherTeacherIdAndStatus(
+                teacherId, ActivityStatus.COMPLETED
+        );
+    }
+
+    // TODO
+    public double getAverageProgress(Long teacherId) {
+        return activityRepository.findAverageProgressByTeacher(teacherId);
+    }
+
+    // TODO
+    public Map<YearMonth, Long> getActivitiesPerMonth(Long teacherId) {
+        return activityRepository.countActivitiesGroupedByMonth(teacherId);
+    }
 }

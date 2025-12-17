@@ -17,4 +17,9 @@ public class TeacherService {
         return teacherRepository.findByUserUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Teacher not found"));
     }
+
+    // TODO
+    public Teacher getTeacherWithDepartment(Long userId) {
+
+    }
 }

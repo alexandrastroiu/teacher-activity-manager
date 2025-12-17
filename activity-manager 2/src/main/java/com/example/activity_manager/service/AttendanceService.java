@@ -19,6 +19,7 @@ public class AttendanceService {
     private final CourseSessionRepository sessionRepository;
     private final StudentRepository studentRepository;
 
+    // Constructor
     public AttendanceService(
             AttendanceRepository attendanceRepository,
             CourseSessionRepository sessionRepository,
@@ -29,6 +30,7 @@ public class AttendanceService {
         this.studentRepository = studentRepository;
     }
 
+    // Mark attendance
     public void markAttendance(Long sessionId, Long studentId, AttendanceStatus status) {
 
         AttendanceId id = new AttendanceId(sessionId, studentId);
@@ -46,5 +48,22 @@ public class AttendanceService {
 
         attendance.setAttendanceStatus(status);
         attendanceRepository.save(attendance);
+    }
+
+    // Get attendance for a specific course session
+    public List<Attendance> getAttendanceForSession(Long sessionId) {
+        return attendanceRepository.findBySession_SessionId(sessionId);
+    }
+
+    // Delete a specific attendance entry
+    public void deleteAttendance(Long sessionId, Long studentId) {
+        attendanceRepository.deleteById(new AttendanceId(sessionId, studentId));
+    }
+
+    // Validate attendance entry ( prevent duplicate entries)
+    public boolean attendanceExists(Long sessionId, Long studentId) {
+        return attendanceRepository.existsById(
+                new AttendanceId(sessionId, studentId)
+        );
     }
 }

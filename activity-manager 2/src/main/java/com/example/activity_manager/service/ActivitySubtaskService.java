@@ -33,4 +33,6 @@ public class ActivitySubtaskService {
         subtask.setCompleted(completed);
         subtaskRepository.save(subtask);
     }
+
+    // TODO delete subtask
 }
