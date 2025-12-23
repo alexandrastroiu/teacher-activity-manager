@@ -34,5 +34,17 @@ public class ActivitySubtaskService {
         subtaskRepository.save(subtask);
     }
 
-    // TODO delete subtask
+    // Delete subtask
+    public void delete(Long subtaskId) {
+        if (!subtaskRepository.existsById(subtaskId)) {
+            throw new RuntimeException("Subtask not found");
+        }
+        subtaskRepository.deleteById(subtaskId);
+    }
+
+    // Get subtasks for an activity
+    public List<ActivitySubtask> getSubtasksByActivity(Long activityId) {
+        return subtaskRepository.findByActivity_ActivityId(activityId);
+    }
+
 }
