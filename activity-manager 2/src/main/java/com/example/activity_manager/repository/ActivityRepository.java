@@ -36,4 +36,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             ActivityStatus status
     );
 
+    long countByTeacher_TeacherId(Long teacherId);
+
 }

@@ -100,6 +100,11 @@ public class ActivityService {
         );
     }
 
+    public long countTotalActivities(Long teacherId) {
+        return activityRepository.countByTeacher_TeacherId(teacherId);
+    }
+
+
     public double getAverageProgress(Long teacherId) {
         List<Activity> activities = getActivitiesByTeacher(teacherId);
 
