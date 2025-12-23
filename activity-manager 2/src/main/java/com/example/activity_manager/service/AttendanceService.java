@@ -30,10 +30,10 @@ public class AttendanceService {
         this.studentRepository = studentRepository;
     }
 
-    // Mark attendance
+    // Mark attendance (create or update)
     public void markAttendance(Long sessionId, Long studentId, AttendanceStatus status) {
 
-        AttendanceId id = new AttendanceId(sessionId, studentId);
+        AttendanceId id = new AttendanceId(sessionId, studentId); // composite key
 
         Attendance attendance = attendanceRepository.findById(id)
                 .orElseGet(() -> {
