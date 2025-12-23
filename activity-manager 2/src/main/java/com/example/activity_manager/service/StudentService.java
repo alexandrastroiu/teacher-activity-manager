@@ -14,11 +14,13 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final CourseEnrollmentRepository enrollmentRepository;
 
+    // Constructor
     public StudentService(StudentRepository studentRepository, CourseEnrollmentRepository courseEnrollmentRepository) {
         this.studentRepository = studentRepository;
         this.enrollmentRepository = courseEnrollmentRepository;
     }
 
+    // Get students enrolled in a specific courses
     public List<Student> getStudentsByCourse(Long courseId) {
         return enrollmentRepository.findByCourseCourseId(courseId)
                 .stream()
