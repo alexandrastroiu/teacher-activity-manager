@@ -2,6 +2,8 @@ package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.AttendanceStatus;
 
+import jakarta.validation.constraints.NotNull;
+
 public class AttendanceUpdateDto {
     @NotNull(message = "Attendance status must not be empty")
     private AttendanceStatus status;

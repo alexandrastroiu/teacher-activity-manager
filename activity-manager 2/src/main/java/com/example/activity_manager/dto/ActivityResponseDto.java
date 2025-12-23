@@ -1,11 +1,13 @@
 package com.example.activity_manager.dto;
 
+import com.example.activity_manager.model.Activity;
 import com.example.activity_manager.model.ActivityStatus;
 import com.example.activity_manager.model.Priority;
 import com.example.activity_manager.model.Difficulty;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ActivityResponseDto {
 
@@ -21,7 +23,7 @@ public class ActivityResponseDto {
     private List<SubtaskResponseDto> subtasks;
 
     // Constructor
-    public ActivityResponseDto(
+    public ActivityResponseDto (
             Long activityId,
             String title,
             String description,
@@ -43,6 +45,27 @@ public class ActivityResponseDto {
         this.difficulty = difficulty;
         this.progress = progress;
         this.subtasks = subtasks;
+    }
+
+    public static ActivityResponseDto from(
+            Activity activity,
+            int progress
+    ) {
+        return new ActivityResponseDto(
+                activity.getActivityId(),
+                activity.getTitle(),
+                activity.getDescription(),
+                activity.getStartDate(),
+                activity.getEndDate(),
+                activity.getStatus(),
+                activity.getPriority(),
+                activity.getDifficulty(),
+                progress,
+                activity.getSubtasks()
+                        .stream()
+                        .map(SubtaskResponseDto::from)
+                        .toList()
+        );
     }
 
     // Getter

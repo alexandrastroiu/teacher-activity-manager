@@ -1,6 +1,7 @@
 package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.UserRole;
+import com.example.activity_manager.model.User;
 
 public class UserResponseDto {
 
@@ -37,5 +38,14 @@ public class UserResponseDto {
 
     public UserRole getRole() {
         return role;
+    }
+
+    public static UserResponseDto from(User u) {
+        return new UserResponseDto(
+                u.getUserId(),
+                u.getUsername(),
+                u.getUserEmail(),
+                u.getUserRole()
+        );
     }
 }

@@ -1,5 +1,6 @@
 package com.example.activity_manager.dto;
 
+import com.example.activity_manager.model.Attendance;
 import com.example.activity_manager.model.AttendanceStatus;
 
 public class AttendanceResponseDto {
@@ -44,5 +45,15 @@ public class AttendanceResponseDto {
         this.studentName = studentName;
         this.groupName = groupName;
         this.status = status;
+    }
+
+    public static AttendanceResponseDto from(Attendance a) {
+        return new AttendanceResponseDto(
+                a.getSession().getSessionId(),
+                a.getStudent().getStudentId(),
+                a.getStudent().getFirstName() + " " + a.getStudent().getLastName(),
+                a.getStudent().getStudentGroup().getGroupName(),
+                a.getAttendanceStatus()
+        );
     }
 }

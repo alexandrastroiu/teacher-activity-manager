@@ -1,5 +1,7 @@
 package com.example.activity_manager.dto;
 
+import com.example.activity_manager.model.CourseSession;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -37,4 +39,15 @@ public class CourseSessionResponseDto {
     public LocalDate getSessionDate() { return sessionDate; }
     public LocalTime getSessionTime() { return sessionTime; }
     public LocalTime getDuration() { return duration; }
+
+    public static CourseSessionResponseDto from(CourseSession s) {
+        return new CourseSessionResponseDto(
+                s.getSessionId(),
+                s.getCourse().getCourseId(),
+                s.getCourse().getCourseName(),
+                s.getSessionDate(),
+                s.getSessionTime(),
+                s.getDuration()
+        );
+    }
 }

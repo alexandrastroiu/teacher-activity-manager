@@ -6,6 +6,8 @@ import com.example.activity_manager.model.Difficulty;
 
 import java.time.LocalDate;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.FutureOrPresent;
 
 public class ActivityCreateDto {
 

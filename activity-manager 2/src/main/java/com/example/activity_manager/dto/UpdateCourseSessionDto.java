@@ -3,6 +3,8 @@ package com.example.activity_manager.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import jakarta.validation.constraints.NotNull;
+
 public class UpdateCourseSessionDto {
     @NotNull(message = "Session date must not be empty")
     private LocalDate sessionDate;

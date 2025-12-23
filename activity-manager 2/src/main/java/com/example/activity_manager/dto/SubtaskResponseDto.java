@@ -1,5 +1,7 @@
 package com.example.activity_manager.dto;
 
+import com.example.activity_manager.model.ActivitySubtask;
+
 public class SubtaskResponseDto {
 
     private Long subtaskId;
@@ -14,6 +16,14 @@ public class SubtaskResponseDto {
         this.subtaskId = subtaskId;
         this.title = title;
         this.completed = completed;
+    }
+
+    public static SubtaskResponseDto from(ActivitySubtask subtask) {
+        return new SubtaskResponseDto(
+                subtask.getSubtaskId(),
+                subtask.getTitle(),
+                subtask.getIsCompleted()
+        );
     }
 
     public Long getSubtaskId() {
