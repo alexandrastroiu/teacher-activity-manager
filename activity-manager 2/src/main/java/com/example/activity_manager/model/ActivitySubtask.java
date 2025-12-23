@@ -67,7 +67,7 @@ public class ActivitySubtask {
         this.title = title;
     }
 
-    public void setCompleted(boolean isCompleted) {
+    public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
 }
