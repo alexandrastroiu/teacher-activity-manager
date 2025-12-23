@@ -87,7 +87,7 @@ public class ActivityService {
     public int calculateProgress(Long activityId) {
         long total = subtaskRepository.countByActivity_ActivityId(activityId);
         long completed = subtaskRepository
-                .countByActivity_ActivityIdAndCompletedTrue(activityId);
+                .countByActivity_ActivityIdAndIsCompletedTrue(activityId);
 
         return total == 0 ? 0 : (int) ((completed * 100) / total);
     }
