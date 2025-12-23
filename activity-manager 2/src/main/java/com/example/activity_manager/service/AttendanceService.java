@@ -8,10 +8,11 @@ import com.example.activity_manager.model.AttendanceStatus;
 import com.example.activity_manager.repository.AttendanceRepository;
 import com.example.activity_manager.repository.StudentRepository;
 import com.example.activity_manager.repository.CourseSessionRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AttendanceService {
@@ -31,23 +32,23 @@ public class AttendanceService {
     }
 
     // Mark attendance (create or update)
-    public void markAttendance(Long sessionId, Long studentId, AttendanceStatus status) {
+    public Attendance markAttendance(Long sessionId, Long studentId, AttendanceStatus status) {
 
         AttendanceId id = new AttendanceId(sessionId, studentId); // composite key
 
         Attendance attendance = attendanceRepository.findById(id)
                 .orElseGet(() -> {
                     CourseSession session = sessionRepository.findById(sessionId)
-                            .orElseThrow(() -> new RuntimeException("Session not found"));
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Attendance not found"));
 
                     Student student = studentRepository.findById(studentId)
-                            .orElseThrow(() -> new RuntimeException("Student not found"));
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Attendance not found"));
 
                     return new Attendance(session, student, status);
                 });
 
         attendance.setAttendanceStatus(status);
-        attendanceRepository.save(attendance);
+        return attendanceRepository.save(attendance);
     }
 
     // Get attendance for a specific course session

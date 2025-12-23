@@ -3,6 +3,8 @@ package com.example.activity_manager.service;
 import com.example.activity_manager.model.ActivitySubtask;
 import com.example.activity_manager.repository.ActivitySubtaskRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class ActivitySubtaskService {
     }
 
     // Create or update
-    public ActivitySubtask save(ActivitySubtask subtask) {
+    public ActivitySubtask create(ActivitySubtask subtask) {
         return subtaskRepository.save(subtask);
     }
 
@@ -26,18 +28,18 @@ public class ActivitySubtaskService {
     }
 
     // Mark subtask
-    public void setCompleted(Long subtaskId, boolean completed) {
+    public ActivitySubtask setCompleted(Long subtaskId, boolean completed) {
         ActivitySubtask subtask = subtaskRepository.findById(subtaskId)
-                .orElseThrow(() -> new RuntimeException("Subtask not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subtask not found"));
 
-        subtask.setCompleted(completed);
-        subtaskRepository.save(subtask);
+        subtask.setIsCompleted(completed);
+        return subtaskRepository.save(subtask);
     }
 
     // Delete subtask
     public void delete(Long subtaskId) {
         if (!subtaskRepository.existsById(subtaskId)) {
-            throw new RuntimeException("Subtask not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subtask not found");
         }
         subtaskRepository.deleteById(subtaskId);
     }

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 @Service
 public class CourseSessionService {
 
@@ -31,7 +34,7 @@ public class CourseSessionService {
     // Update session
     public CourseSession updateSession(Long sessionId, CourseSession updated) {
         CourseSession session = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("Session not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
 
         session.setSessionDate(updated.getSessionDate());
         session.setSessionTime(updated.getSessionTime());
@@ -43,7 +46,7 @@ public class CourseSessionService {
     // Delete session
     public void deleteSession(Long sessionId) {
         if (!sessionRepository.existsById(sessionId)) {
-            throw new RuntimeException("Session not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
         }
         sessionRepository.deleteById(sessionId);
     }

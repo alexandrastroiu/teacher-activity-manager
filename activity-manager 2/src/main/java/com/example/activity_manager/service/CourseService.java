@@ -5,6 +5,9 @@ import com.example.activity_manager.repository.CourseRepository;
 import com.example.activity_manager.repository.CourseSessionRepository;
 import org.springframework.stereotype.Service;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @Service
@@ -18,6 +21,12 @@ public class CourseService {
         this.courseRepository = courseRepository;
         this.sessionRepository = sessionRepository;
     }
+
+    public Course getById(Long courseId) {
+        return courseRepository.findById(courseId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
+    }
+
 
     // Get courses for a teacher
     public List<Course> getCoursesByTeacher(Long teacherId) {
