@@ -13,16 +13,18 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final CourseSessionRepository sessionRepository;
 
+    // Constructor
     public CourseService(CourseRepository courseRepository, CourseSessionRepository sessionRepository) {
         this.courseRepository = courseRepository;
         this.sessionRepository = sessionRepository;
     }
 
+    // Get courses for a teacher
     public List<Course> getCoursesByTeacher(Long teacherId) {
         return courseRepository.findByTeacher_TeacherId(teacherId);
     }
 
-    // TODO
+    // Get the number of sessions for a course
     public Long countSessionsForCourse(Long courseId) {
         return sessionRepository.countByCourseCourseId(courseId);
     }
