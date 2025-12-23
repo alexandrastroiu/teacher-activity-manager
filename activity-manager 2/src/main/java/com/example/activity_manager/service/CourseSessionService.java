@@ -42,6 +42,9 @@ public class CourseSessionService {
 
     // Delete session
     public void deleteSession(Long sessionId) {
+        if (!sessionRepository.existsById(sessionId)) {
+            throw new RuntimeException("Session not found");
+        }
         sessionRepository.deleteById(sessionId);
     }
 }
