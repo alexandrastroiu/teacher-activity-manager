@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "activities")
@@ -48,7 +49,7 @@ public class Activity {
     private Difficulty difficulty;
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ActivitySubtask> subtasks;
+    private List<ActivitySubtask> subtasks = new ArrayList<>();;
 
 
     // Default constructor
@@ -111,6 +112,10 @@ public class Activity {
 
     public Priority getPriority() {
         return priority;
+    }
+
+    public List<ActivitySubtask> getSubtasks() {
+        return subtasks;
     }
 
     // Setters
