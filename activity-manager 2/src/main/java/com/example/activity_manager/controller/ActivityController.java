@@ -117,6 +117,7 @@ public class ActivityController {
     }
 
     // Progress
+    // GET
     @GetMapping("/teacher/{teacherId}/stats")
     public TeacherDashboardDto getDashboard(@PathVariable Long teacherId) {
 
@@ -125,5 +126,28 @@ public class ActivityController {
         double avgProgress = activityService.getAverageProgress(teacherId);
 
         return new TeacherDashboardDto(total, completed, avgProgress);
+    }
+
+    // Sort activities by deadline
+   // GET
+    @GetMapping("/teacher/{teacherId}/sorted/deadline")
+    public List<ActivityResponseDto> getSortedByDeadline(@PathVariable Long teacherId) {
+        return activityService.getActivitiesSortedByDeadline(teacherId).stream()
+                .map(a -> ActivityResponseDto.from(
+                        a,
+                        activityService.calculateProgress(a.getActivityId())
+                ))
+                .toList();
+    }
+
+    // Edit an activity
+    @PutMapping("/{activityId}")
+    public ActivityResponseDto updateActivity(
+            @PathVariable Long activityId,
+            @Valid @RequestBody ActivityCreateDto dto
+    ) {
+        Activity updated = activityService.update(activityId, dto);
+        int progress = activityService.calculateProgress(updated.getActivityId());
+        return ActivityResponseDto.from(updated, progress);
     }
 }

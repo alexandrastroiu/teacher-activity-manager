@@ -6,12 +6,15 @@ import com.example.activity_manager.model.Priority;
 import com.example.activity_manager.model.Difficulty;
 import com.example.activity_manager.repository.ActivityRepository;
 import com.example.activity_manager.repository.ActivitySubtaskRepository;
+import com.example.activity_manager.dto.ActivityCreateDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.time.YearMonth;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ActivityService {
@@ -26,7 +29,7 @@ public class ActivityService {
 
     // CRUD operations
 
-    // Create or Update
+    // Create
     public Activity create(Activity activity) {
         return activityRepository.save(activity);
     }
@@ -39,10 +42,27 @@ public class ActivityService {
         activityRepository.deleteById(id);
     }
 
+    // Update activity
+    public Activity update(Long activityId, ActivityCreateDto dto) {
+        Activity a = activityRepository.findById(activityId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
+
+        // Update fields (teacher stays the same)
+        a.setTitle(dto.getTitle());
+        a.setDescription(dto.getDescription());
+        a.setStartDate(dto.getStartDate());
+        a.setEndDate(dto.getEndDate());
+        a.setStatus(dto.getStatus());
+        a.setPriority(dto.getPriority());
+        a.setDifficulty(dto.getDifficulty());
+
+        return activityRepository.save(a);
+    }
+
     // Find an activity by ID
     public Activity getById(Long activityId) {
         return activityRepository.findById(activityId)
-                .orElseThrow(() -> new RuntimeException("Activity not found"));
+                .orElseThrow(() ->  new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
     }
 
     // Find all
