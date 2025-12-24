@@ -47,6 +47,17 @@ public class ActivityService {
         Activity a = activityRepository.findById(activityId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
 
+        int progress = calculateProgress(activityId);
+
+        // All completed activities must have progress as 100
+        // Prevent user from marking an activity as complete if progress is not 100%
+        if (dto.getStatus() == ActivityStatus.COMPLETED && progress < 100) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot set COMPLETED unless progress is 100%"
+            );
+        }
+
         // Update fields (teacher stays the same)
         a.setTitle(dto.getTitle());
         a.setDescription(dto.getDescription());
