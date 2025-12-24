@@ -1,7 +1,10 @@
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.ActivitySubtask;
+import com.example.activity_manager.model.Activity;
+import com.example.activity_manager.model.ActivityStatus;
 import com.example.activity_manager.repository.ActivitySubtaskRepository;
+import com.example.activity_manager.repository.ActivityRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,9 +15,11 @@ import java.util.List;
 public class ActivitySubtaskService {
 
     private final ActivitySubtaskRepository subtaskRepository;
+    private final ActivityRepository activityRepository;
 
-    public ActivitySubtaskService(ActivitySubtaskRepository subtaskRepository) {
+    public ActivitySubtaskService(ActivitySubtaskRepository subtaskRepository, ActivityRepository activityRepository) {
         this.subtaskRepository = subtaskRepository;
+        this.activityRepository = activityRepository;
     }
 
     // Create or update
@@ -33,7 +38,27 @@ public class ActivitySubtaskService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subtask not found"));
 
         subtask.setIsCompleted(completed);
-        return subtaskRepository.save(subtask);
+        ActivitySubtask saved = subtaskRepository.save(subtask);
+
+        // If progress == 100% auto complete
+        // If activity is complete but progress is less than 100% => in progress
+
+        Long activityId = saved.getActivity().getActivityId();
+
+        long total = subtaskRepository.countByActivity_ActivityId(activityId);
+        long done  = subtaskRepository.countByActivity_ActivityIdAndIsCompletedTrue(activityId);
+        int progress = (total == 0) ? 0 : (int)((done * 100) / total);
+
+        Activity activity = saved.getActivity();
+        if (progress == 100 && activity.getStatus() != ActivityStatus.COMPLETED) {
+            activity.setStatus(ActivityStatus.COMPLETED);
+            activityRepository.save(activity);
+        } else if (progress < 100 && activity.getStatus() == ActivityStatus.COMPLETED) {
+            activity.setStatus(ActivityStatus.IN_PROGRESS);
+            activityRepository.save(activity);
+        }
+
+        return saved;
     }
 
     // Delete subtask
