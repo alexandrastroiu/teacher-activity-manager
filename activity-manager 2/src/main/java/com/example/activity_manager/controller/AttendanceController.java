@@ -19,8 +19,7 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
     }
 
-    // Mark attendance
-    @ResponseStatus(HttpStatus.CREATED)
+    // Create or update attendance record
     @PostMapping
     public AttendanceResponseDto markAttendance(@Valid @RequestBody AttendanceCreateDto dto) {
         Attendance saved = attendanceService.markAttendance(dto.getSessionId(), dto.getStudentId(), dto.getStatus());

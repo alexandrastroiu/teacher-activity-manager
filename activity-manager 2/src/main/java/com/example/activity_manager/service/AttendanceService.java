@@ -39,10 +39,10 @@ public class AttendanceService {
         Attendance attendance = attendanceRepository.findById(id)
                 .orElseGet(() -> {
                     CourseSession session = sessionRepository.findById(sessionId)
-                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Attendance not found"));
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Session not found"));
 
                     Student student = studentRepository.findById(studentId)
-                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Attendance not found"));
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found"));
 
                     return new Attendance(session, student, status);
                 });
