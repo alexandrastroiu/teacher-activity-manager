@@ -50,4 +50,10 @@ public class CourseSessionService {
         }
         sessionRepository.deleteById(sessionId);
     }
+
+    public CourseSession getById(Long sessionId) {
+        return sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Session not found"));
+    }
+
 }
