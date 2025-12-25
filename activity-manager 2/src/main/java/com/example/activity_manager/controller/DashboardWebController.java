@@ -30,6 +30,7 @@ public class DashboardWebController {
     private final ActivityService activityService;
     private final ActivitySubtaskService subtaskService;
     private final StudentService studentService;
+    private final UserService userService;
 
     public DashboardWebController(
             TeacherService teacherService,
@@ -38,7 +39,8 @@ public class DashboardWebController {
             AttendanceService attendanceService,
             ActivityService activityService,
             ActivitySubtaskService subtaskService,
-            StudentService studentService
+            StudentService studentService,
+            UserService userService
     ) {
         this.teacherService = teacherService;
         this.courseService = courseService;
@@ -47,6 +49,7 @@ public class DashboardWebController {
         this.activityService = activityService;
         this.subtaskService = subtaskService;
         this.studentService = studentService;
+        this.userService = userService;
     }
 
     public record CourseVM(Long id, String name, long sessionsCount) {}
@@ -90,6 +93,17 @@ public class DashboardWebController {
         public LocalTime duration;
     }
 
+    private Long resolveUserId(Long userId, java.security.Principal principal) {
+        if (userId != null) return userId;
+
+        if (principal == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+        }
+
+        return userService.findByUsername(principal.getName()).getUserId();
+    }
+
+
     private void addEnums(Model model) {
         model.addAttribute("statuses", ActivityStatus.values());
         model.addAttribute("priorities", Priority.values());
@@ -115,7 +129,8 @@ public class DashboardWebController {
 
     @GetMapping("/dashboard")
     public String dashboard(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam(required = false) Long courseId,
             @RequestParam(required = false) Long sessionId,
 
@@ -131,10 +146,11 @@ public class DashboardWebController {
 
             Model model
     ) {
-        Teacher teacher = teacherService.getByUserId(userId);
+        Long resolvedUserId = resolveUserId(userId, principal);
+        Teacher teacher = teacherService.getByUserId(resolvedUserId);
         Long teacherId = teacher.getTeacherId();
 
-        model.addAttribute("userId", userId); // keep only for forms/links (DO NOT display)
+        model.addAttribute("userId", resolvedUserId); // keep only for forms/links (DO NOT display)
         model.addAttribute("teacherName", teacher.getFirstName() + " " + teacher.getLastName());
 
 
@@ -315,13 +331,16 @@ public class DashboardWebController {
 
     @PostMapping("/sessions/create")
     public String createSessionInline(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam Long courseId,
             @RequestParam LocalDate sessionDate,
             @RequestParam LocalTime sessionTime,
             @RequestParam LocalTime duration,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
+
         try {
             Course course = courseService.getById(courseId);
 
@@ -334,16 +353,17 @@ public class DashboardWebController {
             CourseSession saved = sessionService.createSession(s);
 
             ra.addFlashAttribute("flashOk", "Session created.");
-            return redirectDashboard(userId, courseId, saved.getSessionId(), null, null, null, null, null, null);
+            return redirectDashboard(resolvedUserId, courseId, saved.getSessionId(), null, null, null, null, null, null);
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not create session. Check date/time values.");
-            return redirectDashboard(userId, courseId, null, null, null, null, null, null, null);
+            return redirectDashboard(resolvedUserId, courseId, null, null, null, null, null, null, null);
         }
     }
 
     @PostMapping("/sessions/{sessionId}/update")
     public String updateSessionInline(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam Long courseId,
             @PathVariable Long sessionId,
             @RequestParam LocalDate sessionDate,
@@ -351,6 +371,7 @@ public class DashboardWebController {
             @RequestParam LocalTime duration,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         try {
             CourseSession updated = new CourseSession();
             updated.setSessionDate(sessionDate);
@@ -360,20 +381,23 @@ public class DashboardWebController {
             sessionService.updateSession(sessionId, updated);
 
             ra.addFlashAttribute("flashOk", "Session updated.");
-            return redirectDashboard(userId, courseId, sessionId, null, null, null, null, null, null);
+            return redirectDashboard(resolvedUserId, courseId, sessionId, null, null, null, null, null, null);
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not update session.");
-            return redirectDashboard(userId, courseId, sessionId, null, null, null, null, null, sessionId);
+            return redirectDashboard(resolvedUserId, courseId, sessionId, null, null, null, null, null, sessionId);
         }
     }
 
     @PostMapping("/sessions/{sessionId}/delete")
     public String deleteSessionInline(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam Long courseId,
             @PathVariable Long sessionId,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
+
         try {
             sessionService.deleteSession(sessionId);
             ra.addFlashAttribute("flashOk", "Session deleted.");
@@ -385,43 +409,48 @@ public class DashboardWebController {
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not delete session.");
         }
-        return redirectDashboard(userId, courseId, null, null, null, null, null, null, null);
+        return redirectDashboard(resolvedUserId, courseId, null, null, null, null, null, null, null);
     }
 
 
     @PostMapping("/attendance/mark")
     public String markAttendance(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam Long courseId,
             @RequestParam Long sessionId,
             @RequestParam Long studentId,
             @RequestParam AttendanceStatus status,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         try {
             attendanceService.markAttendance(sessionId, studentId, status);
             ra.addFlashAttribute("flashOk", "Attendance saved.");
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not save attendance.");
         }
-        return redirectDashboard(userId, courseId, sessionId, null, null, null, null, null, null);
+        return redirectDashboard(resolvedUserId, courseId, sessionId, null, null, null, null, null, null);
     }
 
 
     @PostMapping("/activities/create")
     public String createActivityInline(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @Valid @ModelAttribute("activityCreateForm") ActivityCreateDto dto,
             BindingResult br,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
+
         if (br.hasErrors()) {
             ra.addFlashAttribute("flashError", "Activity create failed. Please fill required fields.");
-            return redirectDashboard(userId, null, null, null, null, null, null, null, null);
+            return redirectDashboard(resolvedUserId, null, null, null, null, null, null, null, null);
         }
 
         try {
-            Teacher teacher = teacherService.getByUserId(userId);
+            Teacher teacher = teacherService.getByUserId(resolvedUserId);
 
             Activity a = new Activity();
             a.setTeacher(teacher);
@@ -439,58 +468,62 @@ public class DashboardWebController {
             ra.addFlashAttribute("flashError", "Could not create activity.");
         }
 
-        return redirectDashboard(userId, null, null, null, null, null, null, null, null);
+        return redirectDashboard(resolvedUserId, null, null, null, null, null, null, null, null);
     }
 
     @PostMapping("/activities/{activityId}/update")
     public String updateActivityInline(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @PathVariable Long activityId,
             @Valid @ModelAttribute("activityEditForm") ActivityCreateDto dto,
             BindingResult br,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         if (br.hasErrors()) {
             ra.addFlashAttribute("flashError", "Activity update failed. Please correct fields.");
-            return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+            return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
         }
-
         try {
             activityService.update(activityId, dto);
             ra.addFlashAttribute("flashOk", "Activity updated.");
-            return redirectDashboard(userId, null, null, null, null, null, null, null, null);
+            return redirectDashboard(resolvedUserId, null, null, null, null, null, null, null, null);
         } catch (ResponseStatusException ex) {
             // IMPORTANT: prevents error screen when status=COMPLETED but progress<100
             ra.addFlashAttribute("flashError", ex.getReason() != null ? ex.getReason() : "Could not update activity.");
-            return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+            return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not update activity.");
-            return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+            return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
         }
     }
 
     @PostMapping("/activities/{activityId}/delete")
-    public String deleteActivity(@RequestParam Long userId, @PathVariable Long activityId, RedirectAttributes ra) {
+    public String deleteActivity(@RequestParam (required = false) Long userId, java.security.Principal principal,@PathVariable Long activityId, RedirectAttributes ra) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         try {
             activityService.delete(activityId);
             ra.addFlashAttribute("flashOk", "Activity deleted.");
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not delete activity.");
         }
-        return redirectDashboard(userId, null, null, null, null, null, null, null, null);
+        return redirectDashboard(resolvedUserId, null, null, null, null, null, null, null, null);
     }
 
 
     @PostMapping("/activities/{activityId}/subtasks")
     public String addSubtask(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @PathVariable Long activityId,
             @RequestParam String title,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         if (title == null || title.trim().isEmpty()) {
             ra.addFlashAttribute("flashError", "Subtask title cannot be empty.");
-            return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+            return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
         }
 
         try {
@@ -507,34 +540,38 @@ public class DashboardWebController {
             ra.addFlashAttribute("flashError", "Could not add subtask.");
         }
 
-        return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+        return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
     }
 
     @PostMapping("/subtasks/{subtaskId}/toggle")
     public String toggleSubtask(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam Long activityId,
             @PathVariable Long subtaskId,
             @RequestParam(required = false) String checked,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         boolean value = (checked != null);
         try {
             subtaskService.setCompleted(subtaskId, value);
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not update subtask status.");
         }
-        return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+        return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
     }
 
     @PostMapping("/subtasks/{subtaskId}/update")
     public String updateSubtask(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam Long activityId,
             @PathVariable Long subtaskId,
             @RequestParam String title,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         try {
             subtaskService.updateTitle(subtaskId, title);
             ra.addFlashAttribute("flashOk", "Subtask updated.");
@@ -543,22 +580,24 @@ public class DashboardWebController {
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not update subtask.");
         }
-        return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+        return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
     }
 
     @PostMapping("/subtasks/{subtaskId}/delete")
     public String deleteSubtask(
-            @RequestParam Long userId,
+            @RequestParam(required = false) Long userId,
+            java.security.Principal principal,
             @RequestParam Long activityId,
             @PathVariable Long subtaskId,
             RedirectAttributes ra
     ) {
+        Long resolvedUserId = resolveUserId(userId, principal);
         try {
             subtaskService.delete(subtaskId);
             ra.addFlashAttribute("flashOk", "Subtask deleted.");
         } catch (Exception ex) {
             ra.addFlashAttribute("flashError", "Could not delete subtask.");
         }
-        return redirectDashboard(userId, null, null, null, null, null, null, activityId, null);
+        return redirectDashboard(resolvedUserId, null, null, null, null, null, null, activityId, null);
     }
 }
