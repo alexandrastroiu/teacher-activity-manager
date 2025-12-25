@@ -74,4 +74,17 @@ public class ActivitySubtaskService {
         return subtaskRepository.findByActivity_ActivityId(activityId);
     }
 
+    public ActivitySubtask updateTitle(Long subtaskId, String title) {
+        ActivitySubtask st = subtaskRepository.findById(subtaskId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subtask not found"));
+
+        if (title == null || title.trim().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title must not be empty");
+        }
+
+        st.setTitle(title.trim());
+        return subtaskRepository.save(st);
+    }
+
+
 }
