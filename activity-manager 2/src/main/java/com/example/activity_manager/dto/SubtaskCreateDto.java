@@ -7,10 +7,12 @@
 package com.example.activity_manager.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class SubtaskCreateDto {
     // validation rules
     @NotBlank(message = "Subtask title must not be empty")
+    @Size(min = 2, max = 50)
     private String title;
 
     // Default constructor
