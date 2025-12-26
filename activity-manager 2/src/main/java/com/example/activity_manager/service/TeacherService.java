@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru implementarea cazurilor de utilizare pentru profesori
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.Teacher;
@@ -31,7 +37,7 @@ public class TeacherService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Teacher not found"));
     }
 
-    // Get the number of courses for teacher
+    // Get the number of courses for a teacher
     public long countCoursesForTeacher(Long teacherId) {
         return courseRepository.countByTeacher_TeacherId(teacherId);
     }

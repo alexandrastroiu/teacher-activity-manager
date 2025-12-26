@@ -1,3 +1,9 @@
+/**
+ * Clasa controller pentru utilizatori (login)
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.controller;
 
 import com.example.activity_manager.dto.LoginRequestDto;

@@ -1,9 +1,15 @@
+/**
+ * Clasa pentru departamente
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="departments")
+@Table(name = "departments")
 public class Department {
 
     @Id
@@ -11,11 +17,12 @@ public class Department {
     @Column(name = "department_id")
     private Long departmentId;
 
-    @Column(name="department_name", nullable = false, unique = true)
+    @Column(name = "department_name", nullable = false, unique = true)
     private String departmentName;
 
     // Default constructor
-    public Department() {}
+    public Department() {
+    }
 
     // Getters
     public Long getDepartmentId() {

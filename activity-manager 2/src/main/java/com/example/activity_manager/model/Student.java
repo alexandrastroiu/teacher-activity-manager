@@ -1,6 +1,8 @@
-/** Clasa pentru studenti
+/**
+ * Clasa pentru studenti
+ *
  * @author Stroiu Alexandra-Ioana
- * @version 15 Decembrie 2025
+ * @version 26 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
@@ -22,7 +24,7 @@ public class Student {
     private String firstName;
 
     @OneToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
@@ -30,7 +32,8 @@ public class Student {
     private StudentGroup group;
 
     // Default constructor
-    public Student() {}
+    public Student() {
+    }
 
     // Getters
     public Long getStudentId() {

@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru implementarea operatiilor (Create, Update, Delete) si a cazurilor de utilizare(sortare, filtrare, progres) pentru activitati
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.Activity;
@@ -10,9 +16,7 @@ import com.example.activity_manager.dto.ActivityCreateDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.time.YearMonth;
-import java.util.Map;
-import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,12 +33,12 @@ public class ActivityService {
 
     // CRUD operations
 
-    // Create
+    // Create activity
     public Activity create(Activity activity) {
         return activityRepository.save(activity);
     }
 
-    // Delete
+    // Delete activity
     public void delete(Long id) {
         if (!activityRepository.existsById(id)) {
             throw new RuntimeException("Activity not found");
@@ -49,8 +53,8 @@ public class ActivityService {
 
         int progress = calculateProgress(activityId);
 
-        // All completed activities must have progress as 100
-        // Prevent user from marking an activity as complete if progress is not 100%
+        // All completed activities must have progress as 100%
+        // Prevent user from marking an activity as completed if progress is not 100%
         if (dto.getStatus() == ActivityStatus.COMPLETED && progress < 100) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
@@ -58,7 +62,7 @@ public class ActivityService {
             );
         }
 
-        // Update fields (teacher stays the same)
+        // Update fields
         a.setTitle(dto.getTitle());
         a.setDescription(dto.getDescription());
         a.setStartDate(dto.getStartDate());
@@ -70,10 +74,10 @@ public class ActivityService {
         return activityRepository.save(a);
     }
 
-    // Find an activity by ID
+    // Find an activity by activity ID
     public Activity getById(Long activityId) {
         return activityRepository.findById(activityId)
-                .orElseThrow(() ->  new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
     }
 
     // Find all
@@ -86,17 +90,19 @@ public class ActivityService {
         return activityRepository.findByTeacher_TeacherId(teacherId);
     }
 
-    // Sorting
+    // Sort activities by deadline
     public List<Activity> getActivitiesSortedByDeadline(Long teacherId) {
         return activityRepository.findByTeacher_TeacherIdOrderByEndDateAsc(teacherId);
     }
 
-    // Filtering activities
+    // Filtering methods for activities
 
+    // Filter activities by status
     public List<Activity> getActivitiesByStatus(Long teacherId, ActivityStatus status) {
         return activityRepository.findByTeacher_TeacherIdAndStatus(teacherId, status);
     }
 
+    // Filter activities by priority
     public List<Activity> getActivitiesByPriority(
             Long teacherId,
             Priority priority
@@ -105,6 +111,7 @@ public class ActivityService {
                 .findByTeacher_TeacherIdAndPriority(teacherId, priority);
     }
 
+    // Filter activities by difficulty level
     public List<Activity> getActivitiesByDifficulty(
             Long teacherId,
             Difficulty difficulty
@@ -114,7 +121,7 @@ public class ActivityService {
     }
 
 
-    // Calculate progress
+    // Calculate progress for an activity
     public int calculateProgress(Long activityId) {
         long total = subtaskRepository.countByActivity_ActivityId(activityId);
         long completed = subtaskRepository
@@ -124,18 +131,20 @@ public class ActivityService {
     }
 
 
-    // Statistics
+    // Count completed activities
     public long countCompletedActivities(Long teacherId) {
         return activityRepository.countByTeacher_TeacherIdAndStatus(
                 teacherId, ActivityStatus.COMPLETED
         );
     }
 
+    // Count the total number of activities
     public long countTotalActivities(Long teacherId) {
         return activityRepository.countByTeacher_TeacherId(teacherId);
     }
 
 
+    // Calculate average progress for all activities
     public double getAverageProgress(Long teacherId) {
         List<Activity> activities = getActivitiesByTeacher(teacherId);
 

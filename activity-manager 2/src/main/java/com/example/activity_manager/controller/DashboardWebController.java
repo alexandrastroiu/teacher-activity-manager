@@ -1,3 +1,9 @@
+/**
+ * Clasa controller pentru interfata grafica
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.controller;
 
 import com.example.activity_manager.dto.ActivityCreateDto;
@@ -52,8 +58,11 @@ public class DashboardWebController {
         this.userService = userService;
     }
 
-    public record CourseVM(Long id, String name, long sessionsCount) {}
-    public record CourseOption(Long id, String name) {}
+    public record CourseVM(Long id, String name, long sessionsCount) {
+    }
+
+    public record CourseOption(Long id, String name) {
+    }
 
     public record SessionVM(
             Long id,
@@ -61,9 +70,11 @@ public class DashboardWebController {
             LocalTime time,
             LocalTime duration,
             int attendanceCount
-    ) {}
+    ) {
+    }
 
-    public record SubtaskVM(Long id, String title, boolean completed) {}
+    public record SubtaskVM(Long id, String title, boolean completed) {
+    }
 
     public record ActivityVM(
             Long id,
@@ -76,7 +87,8 @@ public class DashboardWebController {
             int progress,
             boolean overdue,
             List<SubtaskVM> subtasks
-    ) {}
+    ) {
+    }
 
     public record AttendanceRow(
             Long sessionId,
@@ -84,7 +96,8 @@ public class DashboardWebController {
             String studentName,
             String groupName,
             AttendanceStatus status
-    ) {}
+    ) {
+    }
 
 
     public static class SessionForm {
@@ -251,8 +264,8 @@ public class DashboardWebController {
 
         List<Activity> base = activityService.getActivitiesByTeacher(teacherId);
 
-        if (status != null)     base = base.stream().filter(a -> a.getStatus() == status).toList();
-        if (priority != null)   base = base.stream().filter(a -> a.getPriority() == priority).toList();
+        if (status != null) base = base.stream().filter(a -> a.getStatus() == status).toList();
+        if (priority != null) base = base.stream().filter(a -> a.getPriority() == priority).toList();
         if (difficulty != null) base = base.stream().filter(a -> a.getDifficulty() == difficulty).toList();
 
         if ("deadline".equalsIgnoreCase(sort)) {
@@ -500,7 +513,7 @@ public class DashboardWebController {
     }
 
     @PostMapping("/activities/{activityId}/delete")
-    public String deleteActivity(@RequestParam (required = false) Long userId, java.security.Principal principal,@PathVariable Long activityId, RedirectAttributes ra) {
+    public String deleteActivity(@RequestParam(required = false) Long userId, java.security.Principal principal, @PathVariable Long activityId, RedirectAttributes ra) {
         Long resolvedUserId = resolveUserId(userId, principal);
         try {
             activityService.delete(activityId);

@@ -1,4 +1,6 @@
-/** Clasa pentru cursuri
+/**
+ * Clasa pentru cursuri
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 15 Decembrie 2025
  */
@@ -23,11 +25,12 @@ public class Course {
     private CourseType courseType = CourseType.MANDATORY;
 
     @ManyToOne
-    @JoinColumn(name="teacher_id")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     // Default constructor
-    public Course() {}
+    public Course() {
+    }
 
     // Getters
 

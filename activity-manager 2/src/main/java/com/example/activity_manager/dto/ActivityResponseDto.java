@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de raspuns catre client pentru activitati
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.Activity;
@@ -23,7 +29,7 @@ public class ActivityResponseDto {
     private List<SubtaskResponseDto> subtasks;
 
     // Constructor
-    public ActivityResponseDto (
+    public ActivityResponseDto(
             Long activityId,
             String title,
             String description,
@@ -68,15 +74,44 @@ public class ActivityResponseDto {
         );
     }
 
-    // Getter
-    public Long getActivityId() { return activityId; }
-    public String getTitle() { return title; }
-    public String getDescription() { return description; }
-    public LocalDate getStartDate() { return startDate; }
-    public LocalDate getEndDate() { return endDate; }
-    public ActivityStatus getStatus() { return status; }
-    public Priority getPriority() { return priority; }
-    public Difficulty getDifficulty() { return difficulty; }
-    public int getProgress() { return progress; }
-    public List<SubtaskResponseDto> getSubtasks() { return subtasks; }
+    // Getters
+    public Long getActivityId() {
+        return activityId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public ActivityStatus getStatus() {
+        return status;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public List<SubtaskResponseDto> getSubtasks() {
+        return subtasks;
+    }
 }

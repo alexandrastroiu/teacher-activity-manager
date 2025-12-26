@@ -1,6 +1,8 @@
-/** Clasa pentru grupele de studenti
+/**
+ * Clasa pentru grupele de studenti
+ *
  * @author Stroiu Alexandra-Ioana
- * @version 16 Decembrie 2025
+ * @version 26 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
@@ -15,11 +17,12 @@ public class StudentGroup {
     @Column(name = "group_id")
     private Long groupId;
 
-    @Column(name="group_name", nullable = false)
+    @Column(name = "group_name", nullable = false)
     private String groupName;
 
     // Default constructor
-    public StudentGroup() {}
+    public StudentGroup() {
+    }
 
     // Getters
     public Long getStudentGroupId() {

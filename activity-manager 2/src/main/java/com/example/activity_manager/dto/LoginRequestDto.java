@@ -1,8 +1,15 @@
+/**
+ * Clasa pentru transferul datelor de autentificare de la client catre API
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequestDto {
+    // Validation rules
     @NotBlank(message = "Username must not be empty")
     private String username;
 
@@ -10,7 +17,8 @@ public class LoginRequestDto {
     private String password;
 
     // Default constructor
-    public LoginRequestDto() {}
+    public LoginRequestDto() {
+    }
 
     // Getters
     public String getUsername() {

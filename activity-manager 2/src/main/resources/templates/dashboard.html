@@ -1,3 +1,4 @@
+<!-- Dashboard page-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -25,7 +26,7 @@
     <div class="flash flash-ok" th:if="${flashOk}" th:text="${flashOk}"></div>
     <div class="flash flash-error" th:if="${flashError}" th:text="${flashError}"></div>
 
-  <!-- Current progress section-->
+    <!-- Current progress section-->
     <section class="grid two">
         <div class="card">
             <div class="card-title">Current progress</div>
@@ -40,7 +41,9 @@
                 </div>
                 <div class="stat">
                     <div class="stat-label">Average progress</div>
-                    <div class="stat-value" th:text="${#numbers.formatDecimal(dashboard.averageProgress, 1, 1)} + '%'">0%</div>
+                    <div class="stat-value" th:text="${#numbers.formatDecimal(dashboard.averageProgress, 1, 1)} + '%'">
+                        0%
+                    </div>
                 </div>
             </div>
         </div>
@@ -262,7 +265,8 @@
                 <label>Status</label>
                 <select class="select" name="status">
                     <option value="">All</option>
-                    <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}" th:selected="${s == filterStatus}"></option>
+                    <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"
+                            th:selected="${s == filterStatus}"></option>
                 </select>
             </div>
 
@@ -270,7 +274,8 @@
                 <label>Priority</label>
                 <select class="select" name="priority">
                     <option value="">All</option>
-                    <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}" th:selected="${p == filterPriority}"></option>
+                    <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"
+                            th:selected="${p == filterPriority}"></option>
                 </select>
             </div>
 
@@ -278,7 +283,8 @@
                 <label>Difficulty</label>
                 <select class="select" name="difficulty">
                     <option value="">All</option>
-                    <option th:each="d : ${difficulties}" th:value="${d}" th:text="${d}" th:selected="${d == filterDifficulty}"></option>
+                    <option th:each="d : ${difficulties}" th:value="${d}" th:text="${d}"
+                            th:selected="${d == filterDifficulty}"></option>
                 </select>
             </div>
 
@@ -460,7 +466,7 @@
                 <!-- Add a subtask for an activity-->
                 <form class="inline" method="post" th:action="@{/ui/activities/{id}/subtasks(id=${a.id})}">
                     <input type="hidden" name="userId" th:value="${userId}"/>
-                    <input class="input" type="text" name="title" placeholder="New subtask..." />
+                    <input class="input" type="text" name="title" placeholder="New subtask..."/>
                     <button class="btn small primary" type="submit">Add</button>
                 </form>
 
@@ -470,7 +476,8 @@
                         <form method="post" th:action="@{/ui/subtasks/{sid}/toggle(sid=${st.id})}">
                             <input type="hidden" name="userId" th:value="${userId}"/>
                             <input type="hidden" name="activityId" th:value="${a.id}"/>
-                            <input type="checkbox" name="checked" th:checked="${st.completed}" onchange="this.form.submit()"/>
+                            <input type="checkbox" name="checked" th:checked="${st.completed}"
+                                   onchange="this.form.submit()"/>
                         </form>
 
                         <form class="subtask-edit" method="post" th:action="@{/ui/subtasks/{sid}/update(sid=${st.id})}">

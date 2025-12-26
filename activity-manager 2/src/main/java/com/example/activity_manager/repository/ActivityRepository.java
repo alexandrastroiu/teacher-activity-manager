@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru accesul la baza de date pentru activitati
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.repository;
 
 import com.example.activity_manager.model.Activity;
@@ -5,11 +11,8 @@ import com.example.activity_manager.model.ActivityStatus;
 import com.example.activity_manager.model.Priority;
 import com.example.activity_manager.model.Difficulty;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import java.time.YearMonth;
 import java.util.List;
-import java.util.Map;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByTeacher_TeacherId(Long teacherId);

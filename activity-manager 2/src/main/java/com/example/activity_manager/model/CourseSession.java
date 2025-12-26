@@ -1,10 +1,13 @@
-/** Clasa pentru sesiuni de curs
+/**
+ * Clasa pentru sesiuni de curs
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 16 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -21,17 +24,18 @@ public class CourseSession {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @Column(name="session_date", nullable = false)
+    @Column(name = "session_date", nullable = false)
     private LocalDate sessionDate;
 
-    @Column(name="session_time", nullable = false)
+    @Column(name = "session_time", nullable = false)
     private LocalTime sessionTime;
 
-    @Column(name="duration")
+    @Column(name = "duration")
     private LocalTime duration;
 
     // Default constructor
-    public CourseSession() {}
+    public CourseSession() {
+    }
 
     // Getters
     public Long getSessionId() {

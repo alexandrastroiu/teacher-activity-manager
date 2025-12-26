@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de la client catre API si validarea datelor pentru a crea prezenta
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.AttendanceStatus;
@@ -5,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class AttendanceCreateDto {
 
+    // Validation rules
     @NotNull(message = "Session must not be empty")
     private Long sessionId;
 

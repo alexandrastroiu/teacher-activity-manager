@@ -1,10 +1,13 @@
-/** Clasa pentru cheia compusa
+/**
+ * Clasa pentru cheia compusa
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 17 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,8 +17,10 @@ public class CourseEnrollmentId implements Serializable {
     private Long courseId;
 
     // Default constructor
-    public CourseEnrollmentId() {}
+    public CourseEnrollmentId() {
+    }
 
+    // Constructor
     public CourseEnrollmentId(Long studentId, Long courseId) {
         this.studentId = studentId;
         this.courseId = courseId;

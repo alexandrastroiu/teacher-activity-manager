@@ -1,4 +1,6 @@
-/** Clasa pentru subtask-uri
+/**
+ * Clasa pentru subtask-uri
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 15 Decembrie 2025
  */
@@ -19,21 +21,24 @@ public class ActivitySubtask {
     @JoinColumn(name = "activity_id", nullable = false)
     private Activity activity;
 
-    @Column(name="title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "is_completed", nullable = false)
     private boolean isCompleted = false;
 
     // Default constructor
-    public ActivitySubtask() {}
+    public ActivitySubtask() {
+    }
 
+    // Constructor
     public ActivitySubtask(Activity activity, String title) {
         this.activity = activity;
         this.title = title;
         this.isCompleted = false;
     }
 
+    // Constructor
     public ActivitySubtask(Activity activity, String title, boolean isCompleted) {
         this.activity = activity;
         this.title = title;

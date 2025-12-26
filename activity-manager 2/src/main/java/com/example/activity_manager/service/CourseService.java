@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru implementarea cazurilor de utilizare pentru cursuri
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.Course;
@@ -22,13 +28,14 @@ public class CourseService {
         this.sessionRepository = sessionRepository;
     }
 
+    // Get course by course ID
     public Course getById(Long courseId) {
         return courseRepository.findById(courseId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
     }
 
 
-    // Get courses for a teacher
+    // Get all courses taught by a teacher
     public List<Course> getCoursesByTeacher(Long teacherId) {
         return courseRepository.findByTeacher_TeacherId(teacherId);
     }

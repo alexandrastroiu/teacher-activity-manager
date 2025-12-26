@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru implementarea cazurilor de utilizare pentru studenti
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.Student;

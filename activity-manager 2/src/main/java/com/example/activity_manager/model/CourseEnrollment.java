@@ -1,4 +1,6 @@
-/** Clasa pentru inscriere la cursuri
+/**
+ * Clasa pentru inscriere la cursuri
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 17 Decembrie 2025
  */
@@ -28,8 +30,10 @@ public class CourseEnrollment {
     private EnrollmentType enrollmentType = EnrollmentType.ACTIVE;
 
     // Default constructor
-    public CourseEnrollment() {}
+    public CourseEnrollment() {
+    }
 
+    // Constructor
     public CourseEnrollment(Course course, Student student, EnrollmentType enrollmentType) {
         this.student = student;
         this.course = course;

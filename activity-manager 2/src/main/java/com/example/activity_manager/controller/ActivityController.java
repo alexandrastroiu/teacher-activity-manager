@@ -1,3 +1,9 @@
+/**
+ * Clasa controller pentru activititati
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.controller;
 
 import com.example.activity_manager.dto.*;
@@ -26,7 +32,8 @@ public class ActivityController {
         this.teacherService = teacherService;
     }
 
-    // Create activity (POST)
+    // Create activity
+    // POST
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user/{userId}") // pass user id for now, replace w logged in teacher later
     public ActivityResponseDto createActivity(
@@ -116,7 +123,7 @@ public class ActivityController {
         activityService.delete(activityId);
     }
 
-    // Progress
+    // Calculate Progress
     // GET
     @GetMapping("/teacher/{teacherId}/stats")
     public TeacherDashboardDto getDashboard(@PathVariable Long teacherId) {
@@ -129,7 +136,7 @@ public class ActivityController {
     }
 
     // Sort activities by deadline
-   // GET
+    // GET
     @GetMapping("/teacher/{teacherId}/sorted/deadline")
     public List<ActivityResponseDto> getSortedByDeadline(@PathVariable Long teacherId) {
         return activityService.getActivitiesSortedByDeadline(teacherId).stream()

@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru logica de autentificare a unui utilizator
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.User;
@@ -20,7 +26,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Find user
+    // Find user by username
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -30,15 +36,16 @@ public class UserService {
     public User authenticateTeacher(String username, String rawPassword) {
         User user = findByUsername(username);
 
+        // User role must be teacher
         if (user.getUserRole() != UserRole.TEACHER) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only teachers can log in");
         }
 
+        // Check password and username
         if (!passwordEncoder.matches(rawPassword, user.getUserPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }
 
         return user;
     }
-
 }

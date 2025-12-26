@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de raspuns catre client pentru utilizatori
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.UserRole;

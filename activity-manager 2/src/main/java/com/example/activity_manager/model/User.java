@@ -1,6 +1,8 @@
-/** Clasa pentru utilizatori
+/**
+ * Clasa pentru utilizatori
+ *
  * @author Stroiu Alexandra-Ioana
- * @version 15 Decembrie 2025
+ * @version 26 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
@@ -13,21 +15,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(name="user_password", nullable = false)
+    @Column(name = "user_password", nullable = false)
     private String userPassword;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="user_role", nullable=false)
+    @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
-    @Column(name="user_email", unique=true)
+    @Column(name = "user_email", unique = true)
     private String userEmail;
 
     // Default constructor
-    public User() {}
+    public User() {
+    }
 
     // Getters
     public Long getUserId() {

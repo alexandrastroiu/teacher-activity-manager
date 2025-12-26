@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de raspuns catre client pentru dashboard
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 public class TeacherDashboardDto {

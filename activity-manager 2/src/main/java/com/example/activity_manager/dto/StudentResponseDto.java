@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de raspuns catre client pentru studenti
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.Student;
@@ -15,10 +21,22 @@ public class StudentResponseDto {
         this.groupName = groupName;
     }
 
-    public Long getStudentId() { return studentId; }
-    public String getFirstName() { return firstName; }
-    public String getLastName() { return lastName; }
-    public String getGroupName() { return groupName; }
+    // Getters
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
 
     public static StudentResponseDto from(Student s) {
         return new StudentResponseDto(

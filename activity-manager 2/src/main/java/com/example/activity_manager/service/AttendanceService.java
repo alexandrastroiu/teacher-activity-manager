@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru implementarea operatiilor (Create, Update, Delete) si a cazurilor de utilizare pentru prezenta
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.Attendance;
@@ -61,7 +67,7 @@ public class AttendanceService {
         attendanceRepository.deleteById(new AttendanceId(sessionId, studentId));
     }
 
-    // Validate attendance entry ( prevent duplicate entries)
+    // Validate attendance entry exists ( prevent duplicate entries)
     public boolean attendanceExists(Long sessionId, Long studentId) {
         return attendanceRepository.existsById(
                 new AttendanceId(sessionId, studentId)

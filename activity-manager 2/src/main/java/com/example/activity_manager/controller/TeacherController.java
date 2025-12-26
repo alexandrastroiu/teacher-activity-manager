@@ -1,7 +1,12 @@
+/**
+ * Clasa  controller pentru profesori
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.controller;
 
 import com.example.activity_manager.dto.CourseResponseDto;
-import com.example.activity_manager.dto.StudentResponseDto;
 import com.example.activity_manager.dto.TeacherDashboardDto;
 import com.example.activity_manager.service.ActivityService;
 import com.example.activity_manager.service.CourseService;
@@ -30,7 +35,6 @@ public class TeacherController {
         this.studentService = studentService;
     }
 
-    // TODO change after creating login
     @GetMapping("/user/{userId}/dashboard")
     public TeacherDashboardDto myDashboard(@PathVariable Long userId) {
         Long teacherId = teacherService.getByUserId(userId).getTeacherId();

@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de raspuns catre client pentru subtask-uri
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.ActivitySubtask;
@@ -25,6 +31,8 @@ public class SubtaskResponseDto {
                 subtask.getIsCompleted()
         );
     }
+
+    // Getters
 
     public Long getSubtaskId() {
         return subtaskId;

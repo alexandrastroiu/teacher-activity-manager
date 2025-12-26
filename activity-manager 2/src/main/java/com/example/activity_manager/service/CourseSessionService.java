@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru implementarea operatiilor (Create, Update, Delete) pentru sesiuni de curs
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.CourseSession;
@@ -36,8 +42,11 @@ public class CourseSessionService {
         CourseSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
 
+        // update session date
         session.setSessionDate(updated.getSessionDate());
+        // update session time
         session.setSessionTime(updated.getSessionTime());
+        // update session duration
         session.setDuration(updated.getDuration());
 
         return sessionRepository.save(session);
@@ -51,6 +60,7 @@ public class CourseSessionService {
         sessionRepository.deleteById(sessionId);
     }
 
+    // Find a session by session ID
     public CourseSession getById(Long sessionId) {
         return sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Session not found"));

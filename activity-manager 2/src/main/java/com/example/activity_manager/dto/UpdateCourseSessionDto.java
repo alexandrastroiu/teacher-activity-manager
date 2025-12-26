@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul si validarea datelor pentru actualizarea unei sesiuni de curs de la client catre API
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import java.time.LocalDate;
@@ -6,6 +12,7 @@ import java.time.LocalTime;
 import jakarta.validation.constraints.NotNull;
 
 public class UpdateCourseSessionDto {
+    // validation rules
     @NotNull(message = "Session date must not be empty")
     private LocalDate sessionDate;
 

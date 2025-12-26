@@ -1,4 +1,6 @@
-/** Clasa pentru prezenta studentilor
+/**
+ * Clasa pentru prezenta studentilor
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 15 Decembrie 2025
  */
@@ -27,8 +29,10 @@ public class Attendance {
     private AttendanceStatus attendanceStatus = AttendanceStatus.ABSENT;
 
     // Default constructor
-    public Attendance() {}
+    public Attendance() {
+    }
 
+    // Constructor
     public Attendance(CourseSession session, Student student, AttendanceStatus attendanceStatus) {
         this.session = session;
         this.student = student;

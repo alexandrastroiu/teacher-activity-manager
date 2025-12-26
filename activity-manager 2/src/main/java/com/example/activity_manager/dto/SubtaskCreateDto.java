@@ -1,8 +1,15 @@
+/**
+ * Clasa pentru transferul datelor de la client catre API si validarea datelor pentru a crea un subtask
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
 public class SubtaskCreateDto {
+    // validation rules
     @NotBlank(message = "Subtask title must not be empty")
     private String title;
 
@@ -11,7 +18,9 @@ public class SubtaskCreateDto {
     }
 
     // Setter
-    public void setTitle(String title) { this.title = title; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     // Getter
     public String getTitle() {

@@ -1,12 +1,14 @@
-/** Clasa pentru activitati
+/**
+ * Clasa pentru activitati
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 15 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -20,19 +22,19 @@ public class Activity {
     private Long activityId;
 
     @ManyToOne
-    @JoinColumn(name="teacher_id", nullable = false)
+    @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
-    @Column(name="title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="description", columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name="start_date")
+    @Column(name = "start_date")
     private LocalDate startDate;
 
-    @Column(name="end_date")
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
@@ -49,12 +51,15 @@ public class Activity {
     private Difficulty difficulty;
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ActivitySubtask> subtasks = new ArrayList<>();;
+    private List<ActivitySubtask> subtasks = new ArrayList<>();
+    ;
 
 
     // Default constructor
-    public Activity() {}
+    public Activity() {
+    }
 
+    // Constructor
     public Activity(Teacher teacher, String title) {
         this.teacher = teacher;
         this.title = title;
@@ -66,6 +71,7 @@ public class Activity {
         this.difficulty = Difficulty.EASY;
     }
 
+    // Constructor
     public Activity(Teacher teacher, String title, String description, LocalDate startDate, LocalDate endDate, ActivityStatus status, Priority priority, Difficulty difficulty) {
         this.teacher = teacher;
         this.title = title;
@@ -123,7 +129,7 @@ public class Activity {
         this.teacher = teacher;
     }
 
-    public  void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -132,7 +138,7 @@ public class Activity {
     }
 
     public void setStartDate(LocalDate startDate) {
-     this.startDate = startDate;
+        this.startDate = startDate;
     }
 
     public void setEndDate(LocalDate endDate) {

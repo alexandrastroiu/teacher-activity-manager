@@ -1,15 +1,15 @@
-/** Clasa pentru profesori
+/**
+ * Clasa pentru profesori
+ *
  * @author Stroiu Alexandra-Ioana
- * @version 15 Decembrie 2025
+ * @version 26 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
 
-import javax.annotation.processing.Generated;
-
 @Entity
-@Table(name="teachers")
+@Table(name = "teachers")
 public class Teacher {
 
     @Id
@@ -17,22 +17,23 @@ public class Teacher {
     @Column(name = "teacher_id")
     private Long teacherId;
 
-    @Column(name="first_name", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name="last_name", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @OneToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="department_id", nullable = false)
+    @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
     // Default constructor
-    public Teacher() {}
+    public Teacher() {
+    }
 
     // Getters
     public Long getTeacherId() {

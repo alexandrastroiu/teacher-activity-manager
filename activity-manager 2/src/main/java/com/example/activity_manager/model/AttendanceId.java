@@ -1,10 +1,13 @@
-/** Clasa pentru cheia compusa
+/**
+ * Clasa pentru cheia compusa (attendance ID)
+ *
  * @author Stroiu Alexandra-Ioana
  * @version 16 Decembrie 2025
  */
 package com.example.activity_manager.model;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,7 +18,8 @@ public class AttendanceId implements Serializable {
     private Long studentId;
 
     // Default constructor
-    public AttendanceId() {}
+    public AttendanceId() {
+    }
 
     public AttendanceId(Long sessionId, Long studentId) {
         this.sessionId = sessionId;

@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de raspuns catre client pentru sesiuni de curs
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import com.example.activity_manager.model.CourseSession;
@@ -33,12 +39,29 @@ public class CourseSessionResponseDto {
     }
 
     // Getters
-    public Long getSessionId() { return sessionId; }
-    public Long getCourseId() { return courseId; }
-    public String getCourseName() { return courseName; }
-    public LocalDate getSessionDate() { return sessionDate; }
-    public LocalTime getSessionTime() { return sessionTime; }
-    public LocalTime getDuration() { return duration; }
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public LocalDate getSessionDate() {
+        return sessionDate;
+    }
+
+    public LocalTime getSessionTime() {
+        return sessionTime;
+    }
+
+    public LocalTime getDuration() {
+        return duration;
+    }
 
     public static CourseSessionResponseDto from(CourseSession s) {
         return new CourseSessionResponseDto(

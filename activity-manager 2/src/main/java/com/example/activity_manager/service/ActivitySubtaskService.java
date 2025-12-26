@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru implementarea operatiilor (Create, Update, Delete) si a cazurilor de utilizare pentru subtask-uri
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.service;
 
 import com.example.activity_manager.model.ActivitySubtask;
@@ -22,7 +28,7 @@ public class ActivitySubtaskService {
         this.activityRepository = activityRepository;
     }
 
-    // Create or update
+    // Create subtask
     public ActivitySubtask create(ActivitySubtask subtask) {
         return subtaskRepository.save(subtask);
     }
@@ -40,14 +46,14 @@ public class ActivitySubtaskService {
         subtask.setIsCompleted(completed);
         ActivitySubtask saved = subtaskRepository.save(subtask);
 
-        // If progress == 100% auto complete
-        // If activity is complete but progress is less than 100% => in progress
+        // If progress is 100%, auto complete the subtask
+        // If activity is completed but progress is less than 100%, edit the subtask as in progress
 
         Long activityId = saved.getActivity().getActivityId();
 
         long total = subtaskRepository.countByActivity_ActivityId(activityId);
-        long done  = subtaskRepository.countByActivity_ActivityIdAndIsCompletedTrue(activityId);
-        int progress = (total == 0) ? 0 : (int)((done * 100) / total);
+        long done = subtaskRepository.countByActivity_ActivityIdAndIsCompletedTrue(activityId);
+        int progress = (total == 0) ? 0 : (int) ((done * 100) / total);
 
         Activity activity = saved.getActivity();
         if (progress == 100 && activity.getStatus() != ActivityStatus.COMPLETED) {
@@ -74,6 +80,7 @@ public class ActivitySubtaskService {
         return subtaskRepository.findByActivity_ActivityId(activityId);
     }
 
+    // Update the title of a subtask
     public ActivitySubtask updateTitle(Long subtaskId, String title) {
         ActivitySubtask st = subtaskRepository.findById(subtaskId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subtask not found"));
@@ -85,6 +92,5 @@ public class ActivitySubtaskService {
         st.setTitle(title.trim());
         return subtaskRepository.save(st);
     }
-
 
 }

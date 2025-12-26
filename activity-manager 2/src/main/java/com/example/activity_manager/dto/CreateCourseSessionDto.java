@@ -1,3 +1,9 @@
+/**
+ * Clasa pentru transferul datelor de las client la API si validarea datelor pentru a crea o sesiune de curs
+ *
+ * @author Stroiu Alexandra-Ioana
+ * @version 26 Decembrie 2025
+ */
 package com.example.activity_manager.dto;
 
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +15,7 @@ import java.time.LocalTime;
 
 public class CreateCourseSessionDto {
 
+    // Validation rules
     @NotNull(message = "Course must not be empty")
     @Positive(message = "Course ID must be positive")
     private Long courseId;
@@ -24,14 +31,36 @@ public class CreateCourseSessionDto {
     private LocalTime duration;
 
     // Getters
-    public Long getCourseId() { return courseId; }
-    public LocalDate getSessionDate() { return sessionDate; }
-    public LocalTime getSessionTime() { return sessionTime; }
-    public LocalTime getDuration() { return duration; }
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public LocalDate getSessionDate() {
+        return sessionDate;
+    }
+
+    public LocalTime getSessionTime() {
+        return sessionTime;
+    }
+
+    public LocalTime getDuration() {
+        return duration;
+    }
 
     // Setters
-    public void setCourseId(Long courseId) { this.courseId = courseId; }
-    public void setSessionDate(LocalDate sessionDate) { this.sessionDate = sessionDate; }
-    public void setSessionTime(LocalTime sessionTime) { this.sessionTime = sessionTime; }
-    public void setDuration(LocalTime duration) { this.duration = duration; }
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public void setSessionDate(LocalDate sessionDate) {
+        this.sessionDate = sessionDate;
+    }
+
+    public void setSessionTime(LocalTime sessionTime) {
+        this.sessionTime = sessionTime;
+    }
+
+    public void setDuration(LocalTime duration) {
+        this.duration = duration;
+    }
 }
