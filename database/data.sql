@@ -947,6 +947,7 @@ VALUES (1, 1, 'ACTIVE'),
     (24, 17, 'REPETITION'),
     (24, 13, 'REPETITION'),
     (24, 7, 'REPETITION');
+-- Attendance
 INSERT INTO attendance (session_id, student_id, attendance_status)
 VALUES (1, 1, 'PRESENT'),
     (21, 1, 'PRESENT'),
@@ -960,6 +961,7 @@ VALUES (1, 1, 'PRESENT'),
     (59, 2, 'PRESENT'),
     (78, 2, 'PRESENT'),
     (88, 2, 'PRESENT');
+-- Activities
 INSERT INTO activities (
         teacher_id,
         title,
@@ -1050,7 +1052,7 @@ VALUES (
         'URGENT',
         'MEDIUM'
     );
-    
+-- Subtasks
 INSERT INTO activity_subtasks (activity_id, title, is_completed)
 VALUES (
         1,
@@ -1092,4 +1094,3 @@ VALUES (
         'Decide grading method for homework 1',
         FALSE
     );
-    

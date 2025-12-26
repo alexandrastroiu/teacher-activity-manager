@@ -93,7 +93,7 @@ CREATE TABLE activities (
   difficulty ENUM('EASY', 'MEDIUM', 'HARD') NOT NULL DEFAULT 'EASY',
   FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id)
 );
--- Create table Activity_Subtask
+-- Create table: Activity_Subtask
 CREATE TABLE activity_subtasks (
   subtask_id BIGINT AUTO_INCREMENT PRIMARY KEY,
   activity_id BIGINT NOT NULL,
